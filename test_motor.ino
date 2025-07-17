@@ -1,25 +1,26 @@
-#define SPEED 100
+#define SPEED 200
 
-//right motor pins
-const int in1R = 12;
-const int in2R = 13;
-const int enR = 11;
+// === Motor Driver Pins ===
+#define MOTOR_ENA 11  // Motor kanan (PWM)
+#define MOTOR_IN1 12  // Motor kanan
+#define MOTOR_IN2 13
 
-//left motor pins
-const int in1L = 6;
-const int in2L = 7;
-const int enL = 5;
+#define MOTOR_ENB 5   // Motor kiri (PWM)
+#define MOTOR_IN3 6   // Motor kiri
+#define MOTOR_IN4 7
 
 void setup() {
   Serial.begin(9600);
-  pinMode(in1L, OUTPUT);
-  pinMode(in2L, OUTPUT);
-  pinMode(in1R, OUTPUT);
-  pinMode(in2R, OUTPUT);
-  pinMode(enL, OUTPUT);
-  pinMode(enR, OUTPUT);
+
+  pinMode(MOTOR_IN1, OUTPUT);
+  pinMode(MOTOR_IN2, OUTPUT);
+  pinMode(MOTOR_IN3, OUTPUT);
+  pinMode(MOTOR_IN4, OUTPUT);
+  pinMode(MOTOR_ENA, OUTPUT);
+  pinMode(MOTOR_ENB, OUTPUT);
+
   stopMotors();
-  
+
   Serial.println("Kontrol Robot via Serial Monitor");
   Serial.println("Perintah:");
   Serial.println("w = Maju\ta = Kiri");
@@ -31,6 +32,10 @@ void setup() {
 void loop() {
   if (Serial.available()) {
     char cmd = Serial.read();
+
+    // Abaikan karakter newline dan carriage return
+    if (cmd == '\n' || cmd == '\r') return;
+
     switch (cmd) {
       case 'w': maju(); break;
       case 's': mundur(); break;
@@ -42,54 +47,53 @@ void loop() {
   }
 }
 
+// === Fungsi Motor ===
 void maju() {
-  digitalWrite(in1L, LOW);
-  digitalWrite(in2L, HIGH);
-  digitalWrite(in1R, LOW);
-  digitalWrite(in2R, HIGH);
-  analogWrite(enL, SPEED+3); // Motor kiri sedikit lebih cepat untuk koreksi
-  analogWrite(enR, SPEED);
+  digitalWrite(MOTOR_IN1, LOW);
+  digitalWrite(MOTOR_IN2, HIGH);
+  digitalWrite(MOTOR_IN3, LOW);
+  digitalWrite(MOTOR_IN4, HIGH);
+  analogWrite(MOTOR_ENA, SPEED + 3); // Koreksi motor kanan
+  analogWrite(MOTOR_ENB, SPEED);
   Serial.println("MAJU");
 }
 
 void mundur() {
-  digitalWrite(in1L, HIGH);
-  digitalWrite(in2L, LOW);
-  digitalWrite(in1R, HIGH);
-  digitalWrite(in2R, LOW);
-  analogWrite(enL, SPEED+3);
-  analogWrite(enR, SPEED);
+  digitalWrite(MOTOR_IN1, HIGH);
+  digitalWrite(MOTOR_IN2, LOW);
+  digitalWrite(MOTOR_IN3, HIGH);
+  digitalWrite(MOTOR_IN4, LOW);
+  analogWrite(MOTOR_ENA, SPEED);
+  analogWrite(MOTOR_ENB, SPEED);
   Serial.println("MUNDUR");
 }
 
 void belokKiri() {
-  // Motor kiri mundur, motor kanan maju
-  digitalWrite(in1L, HIGH);
-  digitalWrite(in2L, LOW);
-  digitalWrite(in1R, LOW);
-  digitalWrite(in2R, HIGH);
-  analogWrite(enL, SPEED);
-  analogWrite(enR, SPEED);
+  digitalWrite(MOTOR_IN1, HIGH);
+  digitalWrite(MOTOR_IN2, LOW);
+  digitalWrite(MOTOR_IN3, LOW);
+  digitalWrite(MOTOR_IN4, HIGH);
+  analogWrite(MOTOR_ENA, SPEED);
+  analogWrite(MOTOR_ENB, SPEED);
   Serial.println("BELOK KIRI");
 }
 
 void belokKanan() {
-  // Motor kiri maju, motor kanan mundur
-  digitalWrite(in1L, LOW);
-  digitalWrite(in2L, HIGH);
-  digitalWrite(in1R, HIGH);
-  digitalWrite(in2R, LOW);
-  analogWrite(enL, SPEED);
-  analogWrite(enR, SPEED);
+  digitalWrite(MOTOR_IN1, LOW);
+  digitalWrite(MOTOR_IN2, HIGH);
+  digitalWrite(MOTOR_IN3, HIGH);
+  digitalWrite(MOTOR_IN4, LOW);
+  analogWrite(MOTOR_ENA, SPEED);
+  analogWrite(MOTOR_ENB, SPEED);
   Serial.println("BELOK KANAN");
 }
 
 void stopMotors() {
-  digitalWrite(in1L, LOW);
-  digitalWrite(in2L, LOW);
-  digitalWrite(in1R, LOW);
-  digitalWrite(in2R, LOW);
-  analogWrite(enL, 0);
-  analogWrite(enR, 0);
+  digitalWrite(MOTOR_IN1, LOW);
+  digitalWrite(MOTOR_IN2, LOW);
+  digitalWrite(MOTOR_IN3, LOW);
+  digitalWrite(MOTOR_IN4, LOW);
+  analogWrite(MOTOR_ENA, 0);
+  analogWrite(MOTOR_ENB, 0);
   Serial.println("STOP");
 }

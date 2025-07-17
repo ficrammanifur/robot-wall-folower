@@ -9,10 +9,17 @@
 #define PUMP_RELAY_PIN   A2 // Gunakan NO relay, aktif saat HIGH
 
 // === Thresholds ===
-#define API_TERPANTAU     1000  // Api terdeteksi jika nilai < 1000
-#define API_DEPAN_DEKAT    890  // Api sangat dekat jika < 890 (pas di depan)
+#define API_TERPANTAU      1014  // Tidak ada api jika semua > ini
+#define API_MENDEKATI       950  // Ada api di kejauhan jika < 950
+#define API_DEPAN_DEKAT     890  // Api sangat dekat jika < 890 (pas di depan)
+
+// === Servo Position ===
+const int SERVO_KANAN = 40;
+const int SERVO_KIRI  = 180;
+const int SERVO_DEPAN = 110;
 
 Servo myServo;
+bool keKanan = true;
 
 void setup() {
   Serial.begin(9600);
@@ -22,9 +29,9 @@ void setup() {
   pinMode(FLAME_RIGHT_PIN, INPUT);
   pinMode(PUMP_RELAY_PIN, OUTPUT);
 
-  digitalWrite(PUMP_RELAY_PIN, LOW); // Pompa mati di awal (karena NO relay)
-  myServo.attach(9); // Servo pada pin 9
-  myServo.write(110); // Posisi netral di awal
+  digitalWrite(PUMP_RELAY_PIN, LOW); // Pompa mati di awal
+  myServo.attach(9);
+  myServo.write(SERVO_DEPAN);
 }
 
 void loop() {
@@ -42,36 +49,33 @@ void loop() {
   // === Tidak ada api sama sekali ===
   if (flameLeft > API_TERPANTAU && flameFront > API_TERPANTAU && flameRight > API_TERPANTAU) {
     Serial.println("✅ Tidak ada api terdeteksi → Servo diam, Pompa mati");
-    myServo.write(110);
-    digitalWrite(PUMP_RELAY_PIN, LOW); // Pompa OFF
+    myServo.write(SERVO_DEPAN);
+    digitalWrite(PUMP_RELAY_PIN, LOW);
   }
 
   // === Api tepat di depan dan sangat dekat ===
   else if (flameFront < API_DEPAN_DEKAT) {
-    Serial.println("🔥 API DI DEPAN! → Pompa AKTIF");
-    myServo.write(110); // Servo diam
-    digitalWrite(PUMP_RELAY_PIN, HIGH); // Pompa ON
+    Serial.println("🔥 Api tepat di depan dan dekat! → Pompa aktif, servo gerak kiri-kanan");
+
+    digitalWrite(PUMP_RELAY_PIN, HIGH);
+
+    // Gerak kiri-kanan bergantian
+    if (keKanan) {
+      myServo.write(SERVO_KANAN);
+    } else {
+      myServo.write(SERVO_KIRI);
+    }
+    keKanan = !keKanan;
+    delay(300); // delay pendek untuk ayunan
   }
 
-  // === Api belum tepat di depan → arahkan servo ke kiri atau kanan ===
+  // === Api mulai terdeteksi di kanan atau kiri, tapi belum tepat di depan ===
   else {
-    digitalWrite(PUMP_RELAY_PIN, LOW); // Pastikan pompa OFF sampai api tepat di depan
-
-    if (flameLeft < flameRight && flameLeft < API_TERPANTAU) {
-      Serial.println("↪️ Api terdeteksi di KIRI → Arahkan servo ke kiri untuk mendekati api");
-      myServo.write(180);
-    }
-    else if (flameRight < flameLeft && flameRight < API_TERPANTAU) {
-      Serial.println("↩️ Api terdeteksi di KANAN → Arahkan servo ke kanan untuk mendekati api");
-      myServo.write(45);
-    }
-    else {
-      // Api samar, atau kiri kanan setara
-      Serial.println("⚠️ Api samar atau setara kiri-kanan → Servo netral");
-      myServo.write(110);
-    }
+    Serial.println("🚩 Api mulai terdeteksi → Mendekati api");
+    digitalWrite(PUMP_RELAY_PIN, LOW);
+    myServo.write(SERVO_DEPAN); // Tetap hadap depan
   }
 
   Serial.println("-------------------------------");
-  delay(200);
+  delay(300);
 }

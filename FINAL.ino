@@ -30,7 +30,7 @@
 #define API_DEPAN_DEKAT     744  // Api sangat dekat jika < 744
 #define SENSOR_TOLERANCE    30   // Toleransi perbedaan sensor kiri-kanan untuk lurus
 
-const int SERVO_KANAN = 40;
+const int SERVO_KANAN = 40; //Derajat servo
 const int SERVO_KIRI  = 180;
 const int SERVO_DEPAN = 110;
 

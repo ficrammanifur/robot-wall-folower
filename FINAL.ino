@@ -1,10 +1,6 @@
 #include <Servo.h>
 #include <NewPing.h>
 
-// **Inisialisasi dan Setup: Bagian 1/6 - Definisi konstanta dan variabel global**
-// Mendefinisikan pin untuk sensor ultrasonik, motor, sensor api, dan relay pompa.
-// Menentukan threshold untuk deteksi api dan posisi servo.
-// Membuat objek untuk servo dan sensor ultrasonik, serta variabel untuk status robot.
 #define TRIG_PIN 4
 #define ECHO_PIN 8
 #define MAX_DISTANCE 200
@@ -53,9 +49,6 @@ enum Mode {
 
 Mode currentMode = WALL_FOLLOWING;
 
-// **Inisialisasi dan Setup: Bagian 2/6 - Fungsi setup()**
-// Mengatur pin motor, sensor api, dan relay sebagai input/output.
-// Menginisialisasi komunikasi serial, servo, dan kondisi awal robot (motor berhenti, pompa mati).
 void setup() {
   Serial.begin(9600);
   Serial.println("=== ROBOT PEMADAM API WALL FOLLOWER ===");
@@ -84,9 +77,6 @@ void setup() {
   Serial.println("=====================================");
 }
 
-// **Pembacaan Sensor: Bagian 1/2 - Membaca sensor api dalam loop()**
-// Membaca nilai analog dari tiga sensor api (kiri, depan, kanan) secara kontinu.
-// Menampilkan nilai sensor ke Serial Monitor untuk debugging.
 void loop() {
   int flameLeft  = analogRead(FLAME_LEFT_PIN);
   int flameFront = analogRead(FLAME_FRONT_PIN);
@@ -99,10 +89,6 @@ void loop() {
   Serial.print(" | Right: ");
   Serial.println(flameRight);
 
-  // **Logika Pemadam Api: Bagian 1/3 - Deteksi api untuk beralih mode**
-  // Memeriksa apakah ada api terdeteksi berdasarkan nilai sensor api.
-  // Jika ada api (nilai sensor < API_TERPANTAU), beralih ke mode FIRE_DETECTED.
-  // Jika tidak ada api, kembali ke mode WALL_FOLLOWING.
   if (flameLeft < API_TERPANTAU || flameFront < API_TERPANTAU || flameRight < API_TERPANTAU) {
     currentMode = FIRE_DETECTED;
     fireDetected = true;
@@ -111,8 +97,6 @@ void loop() {
     fireDetected = false;
   }
 
-  // **Logika Pemadam Api: Bagian 2/3 - Pemilihan mode operasi**
-  // Menggunakan switch-case untuk menjalankan mode WALL_FOLLOWING atau FIRE_DETECTED berdasarkan status deteksi api.
   switch (currentMode) {
     case WALL_FOLLOWING:
       wallFollowerMode();
@@ -126,10 +110,6 @@ void loop() {
   delay(200);
 }
 
-// **Navigasi Wall Follower: Bagian 1/2 - Mode wall follower dengan sensor ultrasonik**
-// Menggunakan sensor ultrasonik untuk mendeteksi jarak ke dinding.
-// Jika terlalu dekat, robot mundur atau memulai scan untuk mencari jalur terbaik.
-// Jika jalur bebas, robot maju.
 void wallFollowerMode() {
   if (fireDetected) return; // Jika ada api, keluar dari mode ini
   
@@ -137,8 +117,7 @@ void wallFollowerMode() {
   
   if (!scanning) {
     delay(300);
-    // **Pembacaan Sensor: Bagian 2/2 - Membaca sensor ultrasonik**
-    // Mengukur jarak depan menggunakan sensor ultrasonik.
+
     int frontDistance = sonar.ping_cm();
     Serial.print("Jarak Depan: ");
     Serial.println(frontDistance);
@@ -166,9 +145,6 @@ void wallFollowerMode() {
   }
 }
 
-// **Navigasi Wall Follower: Bagian 2/2 - Pemindaian ultrasonik untuk navigasi**
-// Memindai jarak pada tiga sudut (kiri, tengah, kanan) menggunakan servo dan sensor ultrasonik.
-// Memilih arah dengan jarak terjauh untuk menghindari dinding.
 void performUltrasonicScan() {
   Serial.println("Melakukan scan ultrasonik...");
   
@@ -214,17 +190,11 @@ void performUltrasonicScan() {
   alreadyBacked = false;
 }
 
-// **Logika Pemadam Api: Bagian 3/3 - Mode deteksi dan pemadaman api**
-// Mengontrol pergerakan robot menuju api berdasarkan sensor api.
-// Jika api sangat dekat, mengaktifkan pompa dan menggerakkan servo untuk memadamkan api.
-// Jika api padam, kembali ke mode wall follower.
 void fireDetectionMode(int flameLeft, int flameFront, int flameRight) {
   Serial.println("Mode: FIRE DETECTED");
   
   stopMotors();
-  
-  // **Kontrol Servo dan Pompa: Bagian 1/2 - Pemadaman api saat dekat**
-  // Jika api sangat dekat di depan, aktifkan pompa dan gerakkan servo kiri-kanan.
+
   if (flameFront < API_DEPAN_DEKAT) {
     Serial.println("API SANGAT DEKAT DI DEPAN!");
     Serial.println("Aktifkan pompa dan servo pemadam");
@@ -245,8 +215,6 @@ void fireDetectionMode(int flameLeft, int flameFront, int flameRight) {
     
   }
   
-  // **Logika Pemadam Api: Bagian tambahan - Mendekati api di kejauhan**
-  // Mengarahkan robot menuju api berdasarkan perbandingan sensor kiri dan kanan.
   else if (flameRight < API_MENDEKATI || flameLeft < API_MENDEKATI) {
     Serial.println("Api terdeteksi di kejauhan - Mendekati sumber api");
     
@@ -272,9 +240,7 @@ void fireDetectionMode(int flameLeft, int flameFront, int flameRight) {
     
     stopMotors();
   }
-  
-  // **Logika Pemadam Api: Bagian tambahan - Kembali ke wall follower setelah api padam**
-  // Jika tidak ada api terdeteksi lagi, matikan pompa dan kembali ke mode wall follower.
+
   else {
     Serial.println("Api sudah padam - Kembali ke mode wall following");
     
@@ -289,9 +255,6 @@ void fireDetectionMode(int flameLeft, int flameFront, int flameRight) {
   }
 }
 
-// **Kontrol Motor: Bagian 1/1 - Fungsi untuk mengatur gerakan motor**
-// Mengatur arah dan kecepatan motor untuk maju, mundur, belok kiri, belok kanan, dan berhenti.
-// Menggunakan PWM untuk mengatur kecepatan dan kombinasi HIGH/LOW untuk arah.
 void maju() {
   digitalWrite(MOTOR_IN1, LOW);
   digitalWrite(MOTOR_IN2, HIGH);
@@ -336,7 +299,3 @@ void stopMotors() {
   analogWrite(MOTOR_ENA, 0);
   analogWrite(MOTOR_ENB, 0);
 }
-
-// **Kontrol Servo dan Pompa: Bagian 2/2 - Pengendalian servo dan pompa dalam fungsi lain**
-// Kontrol servo dilakukan di fungsi `wallFollowerMode`, `performUltrasonicScan`, dan `fireDetectionMode` untuk memindai atau mengarahkan penyemprotan.
-// Kontrol pompa dilakukan di `fireDetectionMode` untuk mengaktifkan/menonaktifkan pompa berdasarkan kedekatan api.

@@ -1,4 +1,11 @@
-# 🤖 Robot Wall Follower and Firefighter
+<h1 align="center">🤖 Robot Wall Follower and Firefighter</h1>
+<p align="center"><em>Autonomous Navigation Meets Smart Fire Detection</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/last%20commit-today-brightgreen" />
+  <img src="https://img.shields.io/badge/arduino-100%25-blue" />
+  <img src="https://img.shields.io/badge/components-robotics-lightgrey" />
+</p>
 
 Welcome to the **Robot Wall Follower and Firefighter** project!  
 This repository contains code and resources for an autonomous robot that:
@@ -161,8 +168,14 @@ Sertakan dokumentasi & komentar kode jelas
   </a>
 </p>
 
-📞 Contact
-Pertanyaan atau diskusi?
+## 📞 Contact
+
+Have questions, feedback, or ideas?  
+Open an [issue](https://github.com/ficrammanifur/robot-wall-folower/issues) or reach out via the main GitHub profile: [ficrammanifur](https://github.com/ficrammanifur)
+
+> ℹ️ This README will be updated as the final firefighting integration is completed.
+
+<p align="left"><a href="#🤖-robot-wall-follower-and-firefighter">↑ RETURN</a></p>
 
 Buka Issue di GitHub
 

@@ -7,7 +7,8 @@
   <img src="https://img.shields.io/badge/components-robotics-lightgrey" />
 </p>
 
-Welcome to the **Robot Wall Follower and Firefighter** project!  
+---
+
 This repository contains code and resources for an autonomous robot that:
 
 - 🔁 Menavigasi sepanjang dinding (wall-following)  

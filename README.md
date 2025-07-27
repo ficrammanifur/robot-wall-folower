@@ -176,7 +176,7 @@ Open an [issue](https://github.com/ficrammanifur/robot-wall-folower/issues) or r
 
 > ℹ️ This README will be updated as the final firefighting integration is completed.
 
-<p align="left"><a href="#🤖-robot-wall-follower-and-firefighter">↑ RETURN</a></p>
+<p align="left"><a href="#robot-wall-follower">↑ RETURN</a></p>
 
 Buka Issue di GitHub
 

@@ -122,8 +122,7 @@ flowchart TD
 
 ### 📊 Flowchart Sistem Sensor utama
 
-```mermaid
-flowchart TD
+```mermaidflowchart TD
     A([🚀 START]) --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}
     
@@ -133,14 +132,13 @@ flowchart TD
     %% WALL FOLLOWING
     D --> D1[📏 Baca Sensor Ultrasonik]
     D1 --> D2{Jarak < 27cm?}
-    D2 -- Tidak --> D4[🔍 Scan Kiri-Kanan Servo]
+    D2 -- Ya --> D4[🔍 Scan Kiri-Kanan Servo]
     D4 --> D5[📊 Pilih Jarak Terjauh]
     D5 --> D6[➡️ Arahkan Robot]
     D6 --> D7[⬆️ Maju]
     
-    D2 -- Ya --> D3[⬅️ Mundur]
+    D2 -- Tidak --> D7
     
-    D3 --> B
     D7 --> B
     
     %% FIRE DETECTED

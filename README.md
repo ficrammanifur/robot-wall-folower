@@ -122,7 +122,8 @@ flowchart TD
 
 ### 📊 Flowchart Sistem Sensor utama
 
-```mermaidflowchart TD
+```mermaid
+flowchart TD
     A([🚀 START]) --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}
     

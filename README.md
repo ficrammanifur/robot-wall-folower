@@ -156,6 +156,53 @@ flowchart TD
     style D fill:#f3e5f5,stroke:#333,stroke-width:2px
 ```
 
+### Alur Pembacaan Flowchart
+
+#### 1. Mulai (🚀 START)
+Proses dimulai dari node **START**.
+
+#### 2. Baca Sensor Flame (📡)
+Sistem membaca data dari **sensor flame** untuk mendeteksi keberadaan api.
+
+#### 3. Apakah Api Terdeteksi? (🔥)
+- **Jika YA →** masuk ke **Mode FIRE_DETECTED**  
+- **Jika TIDAK →** masuk ke **Mode WALL_FOLLOWING**
+
+---
+
+### Mode WALL_FOLLOWING
+#### 4. Baca Sensor Ultrasonik (📏)
+Robot membaca jarak menggunakan sensor ultrasonik.
+
+#### 5. Apakah Jarak < 27cm?
+- **Jika YA →**
+  - Robot melakukan **scan kiri-kanan dengan servo** untuk mencari ruang bebas.  
+  - Sistem memilih **jarak terjauh** sebagai arah navigasi.  
+  - Robot diarahkan ke **jarak terjauh**.  
+  - Robot bergerak **maju (⬆️)**.  
+- **Jika TIDAK →**
+  - Robot **langsung maju (⬆️)**.
+
+#### 6. Looping
+Setelah bergerak maju, robot kembali membaca sensor flame (kembali ke langkah 2).
+
+---
+
+### Mode FIRE_DETECTED
+#### 7. Apakah Api Sangat Dekat?
+- **Jika YA →** aktifkan **pompa air (💧)** untuk memadamkan api.  
+- **Jika TIDAK →** robot **maju ke arah api (⬆️)** agar lebih dekat.
+
+#### 8. Looping
+Setelah aksi selesai, robot kembali membaca sensor flame (kembali ke langkah 2).
+
+---
+
+### Ringkasan
+- Dalam kondisi normal, robot berjalan dengan mode **wall following** untuk menghindari halangan.  
+- Jika api terdeteksi, robot beralih ke mode **fire detected** untuk mendekati dan memadamkan api.  
+- Setelah aksi selesai, proses akan kembali berulang dari awal.
+
 ---
 
 ## 🧰 Komponen Hardware

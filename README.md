@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/firefighter.png" alt="AI Assistant Prototype" width="700"/>
+  <img src="assets/firefighter.png" alt="Robot Pemadam Api Wall Follower Prototype" width="700"/>
 </p>
 ---
 

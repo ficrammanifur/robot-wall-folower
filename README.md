@@ -8,6 +8,9 @@
   <img src="https://img.shields.io/badge/license-MIT-lightgrey" />
 </p>
 
+<p align="center">
+  <img src="assets/firefighter.png" alt="AI Assistant Prototype" width="700"/>
+</p>
 ---
 
 ## 📋 Daftar Isi

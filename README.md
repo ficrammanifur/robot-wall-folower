@@ -156,8 +156,8 @@ flowchart TD
     style D fill:#f3e5f5,stroke:#333,stroke-width:2px
 ```
 
-### Alur Pembacaan Flowchart
-
+### Alur Pembacaan Flowchart Sensor utama
+```
 #### 1. Mulai (🚀 START)
 Proses dimulai dari node **START**.
 
@@ -196,7 +196,7 @@ Setelah aksi selesai, robot kembali membaca sensor flame (kembali ke langkah 2).
 - Dalam kondisi normal, robot berjalan dengan mode **wall following** untuk menghindari halangan.  
 - Jika api terdeteksi, robot beralih ke mode **fire detected** untuk mendekati dan memadamkan api.  
 - Setelah aksi selesai, proses akan kembali berulang dari awal.
-
+```
 ---
 
 ## 🧰 Komponen Hardware

@@ -65,7 +65,7 @@ Robot menggunakan **state machine** dengan tiga mode operasi:
 
 ## 📊 Flowchart Sistem
 
-```mermaid%%{init: {'flowchart': {'curve': 'linear'}}}%%
+```mermaid
 flowchart TD
     A[🚀 START] --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}

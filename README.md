@@ -67,25 +67,26 @@ Robot menggunakan **state machine** dengan tiga mode operasi:
 
 ```mermaid
 flowchart TD
-    A[🚀 START] --> B[📡 Baca Sensor Flame]
+    A([START]) --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}
     
-    C -->|Tidak| D[🔄 Mode: WALL_FOLLOWING]
-    C -->|Ya| E[🔥 Mode: FIRE_DETECTED]
+    C -- Tidak --> D[🔄 Mode: WALL_FOLLOWING]
+    C -- Ya --> E[🔥 Mode: FIRE_DETECTED]
     
+    %% WALL FOLLOWING
     D --> D1[📏 Baca Sensor Ultrasonik]
     D1 --> D2{Jarak < 27cm?}
-    D2 -->|Ya| D3[⬅️ Mundur]
-    D2 -->|Tidak| D4{Jarak > 30cm?}
-    D4 -->|Ya| D5[⬆️ Maju]
-    D4 -->|Tidak| D6[🔍 Mulai Scanning]
+    D2 -- Ya --> D3[⬅️ Mundur]
+    D2 -- Tidak --> D4{Jarak > 30cm?}
+    D4 -- Ya --> D5[⬆️ Maju]
+    D4 -- Tidak --> D6[🔍 Mulai Scanning]
     
     D6 --> D7[🔄 Servo Scan: 45°-110°-180°]
     D7 --> D8[📊 Pilih Jarak Terjauh]
     D8 --> D9{Arah Terbaik?}
-    D9 -->|Kiri| D10[↩️ Belok Kiri]
-    D9 -->|Kanan| D11[↪️ Belok Kanan]
-    D9 -->|Tengah| D12[⬆️ Maju]
+    D9 -- Kiri --> D10[↩️ Belok Kiri]
+    D9 -- Kanan --> D11[↪️ Belok Kanan]
+    D9 -- Tengah --> D12[⬆️ Maju]
     
     D3 --> B
     D5 --> B
@@ -93,27 +94,29 @@ flowchart TD
     D11 --> B
     D12 --> B
     
+    %% FIRE DETECTED
     E --> E1{🔥 Api Sangat Dekat?<br/>Front < 744}
-    E1 -->|Ya| E2[💧 Aktifkan Pompa]
+    E1 -- Ya --> E2[💧 Aktifkan Pompa]
     E2 --> E3[🔄 Servo Kiri-Kanan]
     E3 --> E4[⏱️ Semprot 1 detik]
     E4 --> B
     
-    E1 -->|Tidak| E5{🔥 Api Mendekati?<br/>< 950}
-    E5 -->|Ya| E6[🎯 Arahkan ke Api]
+    E1 -- Tidak --> E5{🔥 Api Mendekati?<br/>< 950}
+    E5 -- Ya --> E6[🎯 Arahkan ke Api]
     E6 --> E7{Sensor Mana?}
-    E7 -->|Kiri| E8[↩️ Belok Kiri]
-    E7 -->|Kanan| E9[↪️ Belok Kanan]
-    E7 -->|Seimbang| E10[⬆️ Maju ke Api]
+    E7 -- Kiri --> E8[↩️ Belok Kiri]
+    E7 -- Kanan --> E9[↪️ Belok Kanan]
+    E7 -- Seimbang --> E10[⬆️ Maju ke Api]
     
     E8 --> B
     E9 --> B
     E10 --> B
     
-    E5 -->|Tidak| E11[✅ Api Padam]
+    E5 -- Tidak --> E11[✅ Api Padam]
     E11 --> E12[🔄 Kembali Wall Following]
     E12 --> B
     
+    %% STYLE
     style A fill:#e1f5fe
     style E2 fill:#ffebee
     style E11 fill:#e8f5e8

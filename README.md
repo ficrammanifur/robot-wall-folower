@@ -168,8 +168,6 @@ Sistem membaca data dari **sensor flame** untuk mendeteksi keberadaan api.
 - **Jika YA →** masuk ke **Mode FIRE_DETECTED**  
 - **Jika TIDAK →** masuk ke **Mode WALL_FOLLOWING**
 
----
-
 ### Mode WALL_FOLLOWING
 #### 4. Baca Sensor Ultrasonik (📏)
 Robot membaca jarak menggunakan sensor ultrasonik.
@@ -186,8 +184,6 @@ Robot membaca jarak menggunakan sensor ultrasonik.
 #### 6. Looping
 Setelah bergerak maju, robot kembali membaca sensor flame (kembali ke langkah 2).
 
----
-
 ### Mode FIRE_DETECTED
 #### 7. Apakah Api Sangat Dekat?
 - **Jika YA →** aktifkan **pompa air (💧)** untuk memadamkan api.  
@@ -195,8 +191,6 @@ Setelah bergerak maju, robot kembali membaca sensor flame (kembali ke langkah 2)
 
 #### 8. Looping
 Setelah aksi selesai, robot kembali membaca sensor flame (kembali ke langkah 2).
-
----
 
 ### Ringkasan
 - Dalam kondisi normal, robot berjalan dengan mode **wall following** untuk menghindari halangan.  

@@ -124,30 +124,34 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[🚀 START] --> B[📡 Baca Sensor Flame]
+    A([🚀 START]) --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}
     
-    C -->|Ya| E[🔥 Mode: FIRE_DETECTED]
-    C -->|Tidak| D[🔄 Mode: WALL_FOLLOWING]
+    C -- Ya --> E[🔥 Mode: FIRE_DETECTED]
+    C -- Tidak --> D[🔄 Mode: WALL_FOLLOWING]
     
+    %% WALL FOLLOWING
     D --> D1[📏 Baca Sensor Ultrasonik]
     D1 --> D2{Jarak < 27cm?}
-    D2 -->|Ya| D3[⬅️ Mundur]
-    D2 -->|Tidak| D4[🔍 Scan Kiri-Kanan dengan Servo]
+    D2 -- Tidak --> D4[🔍 Scan Kiri-Kanan Servo]
     D4 --> D5[📊 Pilih Jarak Terjauh]
-    D5 --> D6[➡️ Arahkan Robot ke Jarak Terjauh]
+    D5 --> D6[➡️ Arahkan Robot]
     D6 --> D7[⬆️ Maju]
+    
+    D2 -- Ya --> D3[⬅️ Mundur]
     
     D3 --> B
     D7 --> B
     
+    %% FIRE DETECTED
     E --> E1{🔥 Api Sangat Dekat?}
-    E1 -->|Ya| E2[💧 Aktifkan Pompa]
-    E1 -->|Tidak| E3[⬆️ Maju ke Api]
+    E1 -- Ya --> E2[💧 Aktifkan Pompa]
+    E1 -- Tidak --> E3[⬆️ Maju ke Api]
     
     E2 --> B
     E3 --> B
     
+    %% STYLE
     style A fill:#e1f5fe,stroke:#333,stroke-width:2px
     style E2 fill:#ffebee,stroke:#333,stroke-width:2px
     style D fill:#f3e5f5,stroke:#333,stroke-width:2px

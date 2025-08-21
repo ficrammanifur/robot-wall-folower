@@ -120,8 +120,9 @@ flowchart TD
     style D fill:#f3e5f5,stroke:#333,stroke-width:2px
 ```
 
-```
-%%{init: {'flowchart': {'curve': 'linear'}}}%%
+### 📊 Flowchart Sistem Sensor utama
+
+```mermaid
 flowchart TD
     A[🚀 START] --> B[📡 Baca Sensor Flame]
     B --> C{🔥 Api Terdeteksi?}

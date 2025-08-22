@@ -211,10 +211,10 @@ Setelah aksi selesai, robot kembali membaca sensor flame (kembali ke langkah 2).
 |----------|-------|-----|--------|
 | Sensor Ultrasonik | HC-SR04 | 4 (TRIG), 8 (ECHO) | Deteksi jarak dinding |
 | Servo Motor | SG90 | 9 (PWM) | Scanning sensor |
-| Sensor Flame Kiri | - | A4 (Analog) | Deteksi api kiri |
-| Sensor Flame Depan | - | A5 (Analog) | Deteksi api depan |
-| Sensor Flame Kanan | - | A3 (Analog) | Deteksi api kanan |
-| Relay Pompa | - | A2 (Digital) | Kontrol pompa air |
+| Sensor Flame Kiri | KY-026 | A4 (Analog) | Deteksi api kiri |
+| Sensor Flame Depan | KY-026 | A5 (Analog) | Deteksi api depan |
+| Sensor Flame Kanan | KY-026 | A3 (Analog) | Deteksi api kanan |
+| Relay Pompa | 5V 1-Channel Relay Module (Opto-Isolated, High/Low Trigger) | A2 (Digital) | Kontrol pompa air |
 
 ### Motor & Driver
 | Komponen | Pin | Fungsi |

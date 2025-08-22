@@ -276,6 +276,8 @@ Ikuti diagram wiring sesuai tabel pin di atas. Pastikan:
 
 ## 🔧 Konfigurasi Pin
 
+<img src="assets/Wiring Diagram.png" alt="Robot Pemadam Api Wall Follower Prototype" width="700"/>
+
 ```cpp
 // Sensor Ultrasonik
 #define TRIG_PIN 4

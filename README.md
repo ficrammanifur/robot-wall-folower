@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/arduino-C++-blue" />
-  <img src="https://img.shields.io/badge/robotics" />
+  <img src="https://img.shields.io/badge/robotics-active-green" />
   <img src="https://img.shields.io/badge/version-1.0-orange" />
   <img src="https://img.shields.io/badge/license-MIT-lightgrey" />
 </p>

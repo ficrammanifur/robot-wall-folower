@@ -448,6 +448,6 @@ copies or substantial portions of the Software.
 </p>
 
 <p align="center">
-  <a href="#top">⬆️ ⬆ Back on Top</a>
+  <a href="#top">⬆️ Back on Top</a>
 </p>
 

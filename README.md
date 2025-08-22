@@ -11,7 +11,6 @@
   <img src="assets/firefighter.png" alt="Robot Pemadam Api Wall Follower Prototype" width="700"/>
 </p>
 <p align="center"><em>Navigasi Otonom dengan Deteksi dan Pemadaman Api Cerdas</em></p>
----
 
 ## 📋 Daftar Isi
 

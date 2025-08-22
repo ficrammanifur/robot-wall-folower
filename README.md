@@ -1,5 +1,4 @@
 <h1 align="center">🤖 Robot Pemadam Api Wall Follower</h1>
-<p align="center"><em>Navigasi Otonom dengan Deteksi dan Pemadaman Api Cerdas</em></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/arduino-C++-blue" />
@@ -11,6 +10,7 @@
 <p align="center">
   <img src="assets/firefighter.png" alt="Robot Pemadam Api Wall Follower Prototype" width="700"/>
 </p>
+<p align="center"><em>Navigasi Otonom dengan Deteksi dan Pemadaman Api Cerdas</em></p>
 ---
 
 ## 📋 Daftar Isi
